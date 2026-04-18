@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>wishcore · my time at Sunway · functions grid</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* dreamy pastel ombré — soft lavender to cotton candy */
+            background: linear-gradient(125deg, #f9eef7 0%, #e4eef9 35%, #ffe6f0 100%);
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.5;
+            color: #1e2e3b;
+            min-height: 100vh;
+          
+            padding: 2rem 1.5rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* floating cloud & star decorations (wishcore fluff) */
+        .cloud-bg, .star-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 250, 245, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 1000px;
+            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.05), inset 0 1px 2px rgba(255,255,255,0.8);
+        }
+
+        .cloud-1 { width: 220px; height: 110px; top: 8%; left: -40px; background: rgba(255,245,240,0.65); border-radius: 200px; filter: blur(2px); }
+        .cloud-2 { width: 340px; height: 150px; bottom: 5%; right: -50px; background: rgba(253,237,242,0.55); border-radius: 300px; filter: blur(3px); }
+        .cloud-3 { width: 180px; height: 85px; top: 25%; right: 15%; background: rgba(245,235,250,0.6); border-radius: 200px; filter: blur(2px); }
+        .cloud-4 { width: 260px; height: 120px; bottom: 20%; left: 5%; background: rgba(250,240,255,0.5); border-radius: 260px; filter: blur(3px); }
+        .cloud-5 { width: 150px; height: 70px; top: 65%; right: 8%; background: rgba(255,248,235,0.6); border-radius: 180px; filter: blur(2px); }
+
+        /* tiny stars (pure CSS sparkle shapes) */
+        .star {
+            position: absolute;
+            background: #fffce3;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            box-shadow: 0 0 6px 2px rgba(255,240,180,0.8);
+            opacity: 0.6;
+        }
+        .star-cross {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: transparent;
+        }
+        .star-cross::before, .star-cross::after {
+            content: "";
+            position: absolute;
+            background: rgba(255,245,200,0.85);
+            border-radius: 2px;
+        }
+        .star-cross::before {
+            width: 2px;
+            height: 12px;
+            top: 0;
+            left: 5px;
+        }
+        .star-cross::after {
+            width: 12px;
+            height: 2px;
+            top: 5px;
+            left: 0;
+        }
+
+        /* main container */
+        .main-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* main heading (only once) */
+        .global-heading {
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+        h1 {
+            font-size: 2.9rem;
+            font-weight: 450;
+            letter-spacing: -0.3px;
+            color: #2f455b;
+            text-shadow: 2px 2px 12px rgba(255,235,225,0.6);
+            border-left: 5px solid #f3c5d6;
+            padding-left: 1.3rem;
+            margin-bottom: 0.4rem;
+        }
+        .main-sub {
+            font-size: 1rem;
+            color: #7b6b7c;
+            padding-left: 1.8rem;
+            font-style: italic;
+            opacity: 0.75;
+        }
+
+        /* 3x3 responsive grid */
+        .grid-9 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        /* each section card (identical) */
+        .wish-card {
+            background: rgba(255, 253, 251, 0.92);
+            backdrop-filter: blur(2px);
+            border-radius: 2rem;
+            padding: 1.4rem 1.4rem 1.8rem;
+            transition: all 0.25s ease;
+            box-shadow: 0 16px 30px -12px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(245, 215, 220, 0.5);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .wish-card:hover {
+            background: #fffefc;
+            transform: translateY(-5px);
+            box-shadow: 0 22px 35px -14px rgba(80, 60, 70, 0.15);
+            border-color: #ffe0e7;
+        }
+
+        /* section subheading (Functions) */
+        .section-functions {
+            font-size: 1.6rem;
+            font-weight: 450;
+            color: #5b6f7e;
+            margin-bottom: 1rem;
+            border-bottom: 2px dotted #efcdda;
+            display: inline-block;
+            padding-right: 1rem;
+            letter-spacing: -0.2px;
+        }
+
+        /* iframe area inside card */
+        .iframe-section {
+            margin: 0.6rem 0 1.2rem;
+            background: rgba(252, 240, 238, 0.6);
+            border-radius: 1.5rem;
+            padding: 0.6rem;
+            transition: all 0.2s;
+        }
+        .iframe-wrapper {
+            position: relative;
+            width: 100%;
+            border-radius: 1.2rem;
+            overflow: hidden;
+            background: #fff8f4;
+        }
+        iframe {
+            display: block;
+            width: 100%;
+            height: 240px;
+            border: none;
+            border-radius: 1rem;
+            background: #fffdfb;
+        }
+        .iframe-note {
+            font-size: 0.7rem;
+            text-align: center;
+            margin-top: 0.6rem;
+            color: #8b6f7a;
+            background: rgba(248, 238, 240, 0.6);
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0.2rem 1rem;
+            border-radius: 60px;
+            font-family: monospace;
+        }
+        .iframe-note code {
+            background: #f1e3e0;
+            padding: 0.1rem 0.5rem;
+            border-radius: 30px;
+            font-size: 0.7rem;
+        }
+
+        /* two paragraphs inside each card (stacked) */
+        .paragraph-stack {
+            margin-top: 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .para-unit {
+            background: rgba(255, 248, 245, 0.7);
+            border-radius: 1.3rem;
+            padding: 0.8rem 1rem;
+            transition: background 0.2s;
+        }
+        .para-unit h4 {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #4d6272;
+            border-left: 3px solid #f0c2d2;
+            padding-left: 0.7rem;
+            margin-bottom: 0.4rem;
+            letter-spacing: -0.1px;
+        }
+        .para-unit p {
+            font-size: 0.9rem;
+            color: #2d404f;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        /* responsive grid breakpoints */
+        @media (max-width: 1000px) {
+            .grid-9 {
+                gap: 1.5rem;
+            }
+            iframe {
+                height: 210px;
+            }
+        }
+        @media (max-width: 780px) {
+            .grid-9 {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.3rem;
+            }
+            h1 {
+                font-size: 2.2rem;
+            }
+            .section-functions {
+                font-size: 1.4rem;
+            }
+            iframe {
+                height: 200px;
+            }
+            .para-unit h4 {
+                font-size: 1.1rem;
+            }
+        }
+        @media (max-width: 550px) {
+            .grid-9 {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            body {
+                padding: 1rem;
+            }
+            .wish-card {
+                padding: 1.2rem;
+            }
+            iframe {
+                height: 240px;
+            }
+            .global-heading {
+                margin-bottom: 1.2rem;
+            }
+        }
+
+        /* extra fluff */
+        .tiny-spark-footer {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: #c9b0bc;
+            opacity: 0.7;
+        }
+        hr {
+            margin: 1rem 0 0;
+            border: none;
+            height: 1px;
+            background: radial-gradient(circle, #ecdbe3, transparent);
+        }
+    </style>
+</head>
+<body>
+
+<!-- floating cloud & star decorations (wishcore atmosphere) -->
+<div class="cloud-bg">
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+    <div class="cloud cloud-4"></div>
+    <div class="cloud cloud-5"></div>
+</div>
+<div class="star-bg">
+    <div class="star" style="top: 12%; left: 85%;"></div>
+    <div class="star" style="top: 22%; left: 7%; width: 8px; height: 8px;"></div>
+    <div class="star" style="top: 45%; left: 92%;"></div>
+    <div class="star" style="top: 70%; left: 3%; width: 5px; height: 5px;"></div>
+    <div class="star" style="top: 82%; left: 88%;"></div>
+    <div class="star" style="top: 35%; left: 14%;"></div>
+    <div class="star" style="top: 60%; left: 96%; width: 7px; height: 7px;"></div>
+    <div class="star" style="top: 15%; left: 25%; width: 4px; height: 4px;"></div>
+    <div class="star-cross" style="top: 18%; left: 65%;"></div>
+    <div class="star-cross" style="top: 55%; left: 20%; transform: scale(0.7);"></div>
+    <div class="star-cross" style="top: 78%; left: 72%; transform: scale(0.6);"></div>
+    <div class="star-cross" style="top: 32%; left: 88%; transform: scale(0.8);"></div>
+    <div class="star-cross" style="top: 90%; left: 40%; transform: scale(0.5);"></div>
+</div>
+
+<div class="main-wrapper">
+    <!-- only one main heading -->
+    <div class="global-heading">
+        <h1>My time at Sunway</h1>
+        <div class="main-sub">✧ soft explorations · functions & reverie ✧</div>
+    </div>
+
+    <!-- 3x3 grid: 9 identical sections -->
+    <div class="grid-9">
+        <!-- generate 9 identical cards using JS? simpler: write static 9 blocks with consistent structure -->
+        <!-- we'll use copy-paste for clarity, but each has same classes and dummy text -->
+        <!-- CARD 1 -->
+        <div class="wish-card">
+            <div class="section-functions">Functions</div>
+            <div class="iframe-section">
+                <div class="iframe-wrapper">
+                    <iframe class="desmos-placeholder" title="Desmos graph placeholder" src="about:blank"></iframe>
+                </div>
+                <div class="iframe-note">📐 desmos ready · replace <code>src</code></div>
+            </div>
+            <div class="paragraph-stack">
+                <div class="para-unit">
+                    <h4>curves & constellations</h4>
+                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Magnis convallis ut mattis, habitant quis facilisi pretium. Tortor class ultricies nibh suspendisse platea euismod. Varius lectus non dignissim suspendisse aenean.</p>
+                </div>
+                <div class="para-unit">
+                    <h4>dynamic graph reverie</h4>
+                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisis suspendisse lobortis nisl inceptos convallis. Augue praesent etiam venenatis lectus, venenatis fusce cras. Iaculis fringilla habitant nunc tempor luctus felis.</p>
+                </div>
+            </div>
+        </div>
+        <!-- CARD 2 -->
+        <div class="wish-card">
+            <div class="section-functions">Functions</div>
+            <div class="iframe-section">
+                <div class="iframe-wrapper">
+                    <iframe class="desmos-placeholder" title="Desmos graph placeholder" src="about:blank"></iframe>
+                </div>
+                <div class="iframe-note">📐 desmos ready · replace <code>src</code></div>
+            </div>
+            <div class="paragraph-stack">
+                <div class="para-unit">
+                    <h4>curves & constellations</h4>
+                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Magnis convallis ut mattis, habitant quis facilisi pretium. Tortor class ultricies nibh suspendisse platea euismod. Varius lectus non dignissim suspendisse aenean.</p>
+                </div>
+                <div class="para-unit">
+                    <h4>dynamic graph reverie</h4>
+                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisis suspendisse lobortis nisl inceptos convallis. Augue praesent etiam venenatis lectus, venenatis fusce cras. Iaculis fringilla habitant nunc tempor luctus felis.</p>
+                </div>
+            </div>
+        </div>
+        <!-- CARD 3 -->
+        <div class="wish-card">
+            <div class="section-functions">Functions</div>
+            <div class="iframe-section">
+                <div class="iframe-wrapper">
+                    <iframe class="desmos-placeholder" title="Desmos graph placeholder" src="about:blank"></iframe>
+                </div>
+                <div class="iframe-note">📐 desmos ready · replace <code>src</code></div>
+            </div>
+            <div class="paragraph-stack">
+                <div class="para-unit">
+                    <h4>curves & constellations</h4>
+                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Magnis convallis ut mattis, habitant quis facilisi pretium. Tortor class ultricies nibh suspendisse platea euismod. Varius lectus non dignissim suspendisse aenean.</p>
+                </div>
+                <div class="para-unit">
+                    <h4>dynamic graph reverie</h4>
+                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisis suspendisse lobortis nisl inceptos convallis. Augue praesent etiam venenatis lectus, venenatis fusce cras. Iaculis fringilla habitant nunc tempor luctus felis.</p>
+                </div>
+            </div>
+        </div>
+        <!-- CARD 4 -->
+        <div class="wish-card">
+            <div class="section-functions">Functions</div>
+            <div class="iframe-section">
+                <div class="iframe-wrapper">
+                    <iframe class="desmos-placeholder" title="Desmos graph placeholder" src="about:blank"></iframe>
+                </div>
+                <div class="iframe-note">📐 desmos ready · replace <code>src</code></div>
+            </div>
+            <div class="paragraph-stack">
+                <div class="para-unit">
+                    <h4>curves & constellations</h4>
+                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Magnis convallis ut mattis, habitant quis facilisi pretium. Tortor class ultricies nibh suspendisse platea euismod. Varius lectus non dignissim suspendisse aenean.</p>
+                </div>
+                <div class="para-unit">
+                    <h4>dynamic graph reverie</h4>
+                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisis suspendisse lobortis nisl inceptos convallis. Augue praesent etiam venenatis lectus, venenatis fusce cras. Iaculis fringilla habitant nunc tempor luctus felis.</p>
+                </div>
+            </div>
+        </div>
+        <!-- CARD 5 -->
+        <div class="wish-card">
+            <div class="section-functions">Functions</div>
+            <div class="iframe-section">
+                <div class="iframe-wrapper">
+                    <iframe class="desmos-placeholder" title="Desmos graph placeholder" src="about:blank"></iframe>
+                </div>
+                <div class="iframe-note">📐 desmos ready · replace <code>src</code></div>
+            </div>
+            <div class="paragraph-stack">
+                <div class="para-unit">
+                    <h4>curves & constellations</h4>
+                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Magnis convallis ut mattis, habitant quis facilisi pretium. Tortor class ultricies nibh suspendisse platea euismod. Varius lectus non dignissim suspendisse aenean.</p>
+                </div>
+                <div class="para-unit">
+                    <h4>dynamic graph reverie</h4>
+                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisis suspendisse lobortis nisl inceptos convallis. Augue praesent etiam venenatis lectus, venenatis fusce cras. Iaculis fringilla habitant nunc tempor luctus felis.</p>
+                </div>
+            </div>
+        </div>
+        <!-- CARD 6 -->
+        <div class="wish-card">
+            <div class="section-functions">Functions</div>
+            <div class="iframe-section">
+                <div class="iframe-wrapper">
+                    <iframe class="desmos-placeholder" title="Desmos graph placeholder" src="about:blank"></iframe>
+                </div>
+                <div class="iframe-note">📐 desmos ready · replace <code>src</code></div>
+            </div>
+            <div class="paragraph-stack">
+                <div class="para-unit">
+                    <h4>curves & constellations</h4>
+                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Magnis convallis ut mattis, habitant quis facilisi pretium. Tortor class ultricies nibh suspendisse platea euismod. Varius lectus non dignissim suspendisse aenean.</p>
+                </div>
+                <div class="para-unit">
+                    <h4>dynamic graph reverie</h4>
+                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisis suspendisse lobortis nisl inceptos convallis. Augue praesent etiam venenatis lectus, venenatis fusce cras. Iaculis fringilla habitant nunc tempor luctus felis.</p>
+                </div>
+            </div>
+        </div>
+        <!-- CARD 7 -->
+        <div class="wish-card">
+            <div class="section-functions">Functions</div>
+            <div class="iframe-section">
+                <div class="iframe-wrapper">
+                    <iframe class="desmos-placeholder" title="Desmos graph placeholder" src="about:blank"></iframe>
+                </div>
+                <div class="iframe-note">📐 desmos ready · replace <code>src</code></div>
+            </div>
+            <div class="paragraph-stack">
+                <div class="para-unit">
+                    <h4>curves & constellations</h4>
+                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Magnis convallis ut mattis, habitant quis facilisi pretium. Tortor class ultricies nibh suspendisse platea euismod. Varius lectus non dignissim suspendisse aenean.</p>
+                </div>
+                <div class="para-unit">
+                    <h4>dynamic graph reverie</h4>
+                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisis suspendisse lobortis nisl inceptos convallis. Augue praesent etiam venenatis lectus, venenatis fusce cras. Iaculis fringilla habitant nunc tempor luctus felis.</p>
+                </div>
+            </div>
+        </div>
+        <!-- CARD 8 -->
+        <div class="wish-card">
+            <div class="section-functions">Functions</div>
+            <div class="iframe-section">
+                <div class="iframe-wrapper">
+                    <iframe class="desmos-placeholder" title="Desmos graph placeholder" src="about:blank"></iframe>
+                </div>
+                <div class="iframe-note">📐 desmos ready · replace <code>src</code></div>
+            </div>
+            <div class="paragraph-stack">
+                <div class="para-unit">
+                    <h4>curves & constellations</h4>
+                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Magnis convallis ut mattis, habitant quis facilisi pretium. Tortor class ultricies nibh suspendisse platea euismod. Varius lectus non dignissim suspendisse aenean.</p>
+                </div>
+                <div class="para-unit">
+                    <h4>dynamic graph reverie</h4>
+                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisis suspendisse lobortis nisl inceptos convallis. Augue praesent etiam venenatis lectus, venenatis fusce cras. Iaculis fringilla habitant nunc tempor luctus felis.</p>
+                </div>
+            </div>
+        </div>
+        <!-- CARD 9 -->
+        <div class="wish-card">
+            <div class="section-functions">Functions</div>
+            <div class="iframe-section">
+                <div class="iframe-wrapper">
+                    <iframe class="desmos-placeholder" title="Desmos graph placeholder" src="about:blank"></iframe>
+                </div>
+                <div class="iframe-note">📐 desmos ready · replace <code>src</code></div>
+            </div>
+            <div class="paragraph-stack">
+                <div class="para-unit">
+                    <h4>curves & constellations</h4>
+                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Magnis convallis ut mattis, habitant quis facilisi pretium. Tortor class ultricies nibh suspendisse platea euismod. Varius lectus non dignissim suspendisse aenean.</p>
+                </div>
+                <div class="para-unit">
+                    <h4>dynamic graph reverie</h4>
+                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisis suspendisse lobortis nisl inceptos convallis. Augue praesent etiam venenatis lectus, venenatis fusce cras. Iaculis fringilla habitant nunc tempor luctus felis.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <div class="tiny-spark-footer">
+        ✦  math cct  ✦
+    </div>
+</div>
+
+<!-- simple helper note (no emoticons overload) -->
+<script>
+    (function() {
+        // optional: friendly console reminder for replacing each iframe src with Desmos embed links
+        const frames = document.querySelectorAll('.desmos-placeholder');
+        if (frames.length) {
+            console.log(`✨ Wishcore grid ready — ${frames.length} Desmos iframe placeholders. Replace each 'src' attribute with your Desmos embed link (e.g., https://www.desmos.com/calculator/example?embed)`);
+        }
+    })();
+</script>
+</body>
+</html>
