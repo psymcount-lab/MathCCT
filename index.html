@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<html>
+
+<body>
+The content of the body element is displayed in your browser.
+</body>
+
+</html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -319,7 +327,7 @@
 <div class="main-wrapper">
     <!-- only one main heading -->
     <div class="global-heading">
-        <h1>My time at Sunway</h1>
+        <h1>Our leisure time</h1>
         <div class="main-sub">✧ soft explorations · functions & reverie ✧</div>
     </div>
 
@@ -329,60 +337,85 @@
         <!-- we'll use copy-paste for clarity, but each has same classes and dummy text -->
         <!-- CARD 1 -->
         <div class="wish-card">
-            <div class="section-functions">Functions</div>
+            <div class="section-functions"><a href="https://www.desmos.com/calculator/fpudt0fgi5">Funhouse mirror-exponential function</a></div>
             <div class="iframe-section">
                 <div class="iframe-wrapper">
-                    <iframe class="desmos-placeholder" title="Desmos graph placeholder" src="about:blank"></iframe>
+                    <iframe src="https://www.desmos.com/calculator/fpudt0fgi5?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
                 </div>
                 <div class="iframe-note">📐 desmos ready · replace <code>src</code></div>
             </div>
             <div class="paragraph-stack">
                 <div class="para-unit">
-                    <h4>curves & constellations</h4>
-                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Magnis convallis ut mattis, habitant quis facilisi pretium. Tortor class ultricies nibh suspendisse platea euismod. Varius lectus non dignissim suspendisse aenean.</p>
+                    <h4>transformations</h4>
+                    <p>I took this photo in an amusement park in Suzhou, China when my friends and I were playing with a huge distorting mirror. I found the shape of the mirror was closely like a growth exponential function, so I selected the parent function y = 2<sup>x</sup>as a starting point.Then I noticed this curve is steeper than the shape of the mirror, so I changed the base number from 2 to 1.4 to make the image grow more slowly.Then I temporiraly adjusted the position of my function and found this shape fit the frame of the mirror nicely.After that, I chose the base of the handle as the original point and found my function is below the mirror.So,I did a vertical translation 1.8 units upward and a horizontal translation of 0.5 unit to the right to let the function fit more perfectly.  <br>     <br>Then this is the final function I got: 
+<br>y = 1.4<sup>(x - 0.5)</sup> + 1.8<br>
+<br>Summary of transformations:
+<br> &bull;  change the base number from 2 to 1.4→ 2<sup>x</sup>to 1.4<sup>x<sup>
+<p>&bull;vertical translation of 1.8 units upward→1.4<sup>x</sup>+1.8
+&bull;horizontal translation of 0.5 unit to the right→<br>1.4<sup>(x - 0.5)</sup> + 1.8
+. </p>
                 </div>
                 <div class="para-unit">
-                    <h4>dynamic graph reverie</h4>
-                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisis suspendisse lobortis nisl inceptos convallis. Augue praesent etiam venenatis lectus, venenatis fusce cras. Iaculis fringilla habitant nunc tempor luctus felis.</p>
+                    <h4>Domain and range</h4>
+                    <p>The domain of my function is D: {x ∈ ℝ|0 &le; x &le; 3.7}. I limited the domain to the portion of the mirror that was visible in the photo.Because the left part of the mirror was covered by my hand and it was invisible, so I limited the minimum x value to 0.The maximum value is just the number at which the mirror frame disappears on the right side.<br>
+<br>The parent function y = 2<sup>x</sup> has a domain of D：{x ∈ ℝ} and a range of R:{y ∈ ℝ|y > 0}.This means this function is defined for all possible x values and can produce any positive numbers output. It also has a horizontal asymptote at y = 0, where the function is undefined. <br>
+<br>After applying transformations,my function also has a horizontal asymptote.However, since I restricted the domain to a small interval that lies away from the asymptote, this undefined behavior is not present from my model.Therefore,I do not need to consider the discontinuity when describing the domain and range of this specific situation.<br>
+<br>Since the function is continuous on the restricted interval, the range can be determined by evaluating the function at the endpoints of the domain. By evaluating at 
+ and x=0 and x=3.7
+, I obtained approximate output values of 2.65 and 4.74.<br><br>Therefore,the range of the function is approximately R:{y ∈ ℝ|2.65 &le; x &le; 4.74}.
+</p>
                 </div>
             </div>
         </div>
         <!-- CARD 2 -->
         <div class="wish-card">
-            <div class="section-functions">Functions</div>
+            <div class="section-functions"><a href="https://www.desmos.com/calculator/tdcephpjgi">Arch-trigonometric function</a></div>
             <div class="iframe-section">
                 <div class="iframe-wrapper">
-                    <iframe class="desmos-placeholder" title="Desmos graph placeholder" src="about:blank"></iframe>
+                   <iframe src="https://www.desmos.com/calculator/tdcephpjgi?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
                 </div>
                 <div class="iframe-note">📐 desmos ready · replace <code>src</code></div>
             </div>
             <div class="paragraph-stack">
                 <div class="para-unit">
-                    <h4>curves & constellations</h4>
-                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Magnis convallis ut mattis, habitant quis facilisi pretium. Tortor class ultricies nibh suspendisse platea euismod. Varius lectus non dignissim suspendisse aenean.</p>
+                    <h4>transformations</h4>
+                    <p>I took this photo in front of the Royal Palace of Malaysia in Kuala Lumpur and I found the shape of the arch is like a secant function. So, I chose the parent function y = sec(x) as a starting point. I set the left edge of the arch as the original point and I found the arch is a downward arc, so I had to choose an image within an interval below the y-axis to fit the shape.I decided to choose the nearest part of the function which is in the lower right part of the picture as the beginning point.<br>
+<br>I found the curvature of the arch is greater than that of the function, so I increased the period from 2π to approximately 9 by conducting a horizontal stretch by a factor of 1/0.7.Then, I temporarily adjusted my picture and found the curve fit the arch nicely. After that, I did a horizontal translation of 2.83 units to the left and a vertical translation of 2.5 units upward to let this part of the function go to its right place.<br>
+<br>The final function I got: y=sec0.7(x+2.83)+2.5<br>
+<br>Summary of transformations:
+<br>&bull; horizontal stretch by a factor of 1/0.7→
+sec(x)→sec(0.7x)
+<br>&bull; horizontal translation of 2.83 units to the left→<br>sec0.7(x+2.83)
+<br>&bull; vertical translation of 2.5 units upward→<br>sec0.7(x+2.83)+2.5
+                    </p>
                 </div>
                 <div class="para-unit">
-                    <h4>dynamic graph reverie</h4>
-                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisis suspendisse lobortis nisl inceptos convallis. Augue praesent etiam venenatis lectus, venenatis fusce cras. Iaculis fringilla habitant nunc tempor luctus felis.</p>
+                    <h4>Domain and range</h4>
+                    <p>The domain of my function is D:{x ∈ ℝ|0 &le; x &le; 3.313}. I chose the left edge of the arch as the starting point, so the minimum value of my domain and range are both zero.I chose 3.313 as the maximum x value is because at this time the y value is closest to zero, which is the most in line with the real situation.<br>
+<br>The parent function y=sec(x) has a domain of D:{x ∈ ℝ|x &ne; &pi;/2 + k&pi;, k &isin; &#8484;} and a range of R:(-&infin;, -1] &cup; [1, &infin;). It also has many vertical asmyptotes at x = &pi;/2 + k&pi;(k &isin; Z)<br><br>After applying transformations, my function also has many vertical asmyptotes. However, since I restricted the domain into a small interval,the asmyptotes became invisible.So I do not need to consider the discontinuity of the domain in this specific situation.<br>
+<br>To find the maximum value of y, I should find the turning point of the function, so I input the sum of the minimum and maximum values of x devided by two, with the expression(0+3.313)/2, which gave me an outputing y-value of approx.1.5.<br>
+<br>Therefore, the range of the function is approximately{y ∈ ℝ|0 &le; x &le; 1.5}
+                    </p>
                 </div>
             </div>
         </div>
         <!-- CARD 3 -->
         <div class="wish-card">
-            <div class="section-functions">Functions</div>
+            <div class="section-functions"><a href="https://www.w3schools.com">Roof-sinusoidal function</a>
+</div>
             <div class="iframe-section">
                 <div class="iframe-wrapper">
-                    <iframe class="desmos-placeholder" title="Desmos graph placeholder" src="about:blank"></iframe>
+                    <iframe src="https://www.desmos.com/calculator/asiqxzzrqi?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
                 </div>
                 <div class="iframe-note">📐 desmos ready · replace <code>src</code></div>
             </div>
             <div class="paragraph-stack">
                 <div class="para-unit">
-                    <h4>curves & constellations</h4>
+                    <h4>transformations</h4>
                     <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Magnis convallis ut mattis, habitant quis facilisi pretium. Tortor class ultricies nibh suspendisse platea euismod. Varius lectus non dignissim suspendisse aenean.</p>
                 </div>
                 <div class="para-unit">
-                    <h4>dynamic graph reverie</h4>
+                    <h4>domain and range</h4>
                     <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisis suspendisse lobortis nisl inceptos convallis. Augue praesent etiam venenatis lectus, venenatis fusce cras. Iaculis fringilla habitant nunc tempor luctus felis.</p>
                 </div>
             </div>
