@@ -1,572 +1,1160 @@
 <!DOCTYPE html>
+
 <html>
 
+
+
 <body>
-The content of the body element is displayed in your browser.
+
+
+
 </body>
+
+
 
 </html>
+
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
     <title>wishcore · my time at Sunway · functions grid</title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
+
         * {
+
             margin: 0;
+
             padding: 0;
+
             box-sizing: border-box;
+
         }
+
+
 
         body {
+
             /* dreamy pastel ombré — soft lavender to cotton candy */
+
             background: linear-gradient(125deg, #f9eef7 0%, #e4eef9 35%, #ffe6f0 100%);
+
             font-family: 'Times New Roman', Times, serif;
+
             line-height: 1.5;
+
             color: #1e2e3b;
+
             min-height: 100vh;
+
           
+
             padding: 2rem 1.5rem;
+
             position: relative;
+
             overflow-x: hidden;
+
         }
+
+
 
         /* floating cloud & star decorations (wishcore fluff) */
+
         .cloud-bg, .star-bg {
+
             position: fixed;
+
             top: 0;
+
             left: 0;
+
             width: 100%;
+
             height: 100%;
+
             pointer-events: none;
+
             z-index: 0;
+
             overflow: hidden;
+
         }
+
+
 
         .cloud {
+
             position: absolute;
+
             background: rgba(255, 250, 245, 0.7);
+
             backdrop-filter: blur(12px);
+
             border-radius: 1000px;
+
             box-shadow: 0 20px 40px -12px rgba(0,0,0,0.05), inset 0 1px 2px rgba(255,255,255,0.8);
+
         }
+
+
 
         .cloud-1 { width: 220px; height: 110px; top: 8%; left: -40px; background: rgba(255,245,240,0.65); border-radius: 200px; filter: blur(2px); }
+
         .cloud-2 { width: 340px; height: 150px; bottom: 5%; right: -50px; background: rgba(253,237,242,0.55); border-radius: 300px; filter: blur(3px); }
+
         .cloud-3 { width: 180px; height: 85px; top: 25%; right: 15%; background: rgba(245,235,250,0.6); border-radius: 200px; filter: blur(2px); }
+
         .cloud-4 { width: 260px; height: 120px; bottom: 20%; left: 5%; background: rgba(250,240,255,0.5); border-radius: 260px; filter: blur(3px); }
+
         .cloud-5 { width: 150px; height: 70px; top: 65%; right: 8%; background: rgba(255,248,235,0.6); border-radius: 180px; filter: blur(2px); }
 
+
+
         /* tiny stars (pure CSS sparkle shapes) */
+
         .star {
+
             position: absolute;
+
             background: #fffce3;
+
             width: 6px;
+
             height: 6px;
+
             border-radius: 50%;
+
             box-shadow: 0 0 6px 2px rgba(255,240,180,0.8);
+
             opacity: 0.6;
+
         }
+
         .star-cross {
+
             position: absolute;
+
             width: 12px;
+
             height: 12px;
+
             background: transparent;
+
         }
+
         .star-cross::before, .star-cross::after {
+
             content: "";
+
             position: absolute;
+
             background: rgba(255,245,200,0.85);
+
             border-radius: 2px;
+
         }
+
         .star-cross::before {
+
             width: 2px;
+
             height: 12px;
+
             top: 0;
+
             left: 5px;
+
         }
+
         .star-cross::after {
+
             width: 12px;
+
             height: 2px;
+
             top: 5px;
+
             left: 0;
+
         }
+
+
 
         /* main container */
+
         .main-wrapper {
+
             max-width: 1400px;
+
             margin: 0 auto;
+
             position: relative;
+
             z-index: 2;
+
         }
+
+
 
         /* main heading (only once) */
+
         .global-heading {
+
             margin-bottom: 2rem;
+
             text-align: left;
+
         }
+
         h1 {
+
             font-size: 2.9rem;
+
             font-weight: 450;
+
             letter-spacing: -0.3px;
+
             color: #2f455b;
+
             text-shadow: 2px 2px 12px rgba(255,235,225,0.6);
+
             border-left: 5px solid #f3c5d6;
+
             padding-left: 1.3rem;
+
             margin-bottom: 0.4rem;
+
         }
+
         .main-sub {
+
             font-size: 1rem;
+
             color: #7b6b7c;
+
             padding-left: 1.8rem;
+
             font-style: italic;
+
             opacity: 0.75;
+
         }
+
+
 
         /* 3x3 responsive grid */
+
         .grid-9 {
+
             display: grid;
+
             grid-template-columns: repeat(3, 1fr);
+
             gap: 2rem;
+
         }
+
+
 
         /* each section card (identical) */
+
         .wish-card {
+
             background: rgba(255, 253, 251, 0.92);
+
             backdrop-filter: blur(2px);
+
             border-radius: 2rem;
+
             padding: 1.4rem 1.4rem 1.8rem;
+
             transition: all 0.25s ease;
+
             box-shadow: 0 16px 30px -12px rgba(0, 0, 0, 0.08);
+
             border: 1px solid rgba(245, 215, 220, 0.5);
+
             display: flex;
+
             flex-direction: column;
+
         }
+
+
 
         .wish-card:hover {
+
             background: #fffefc;
+
             transform: translateY(-5px);
+
             box-shadow: 0 22px 35px -14px rgba(80, 60, 70, 0.15);
+
             border-color: #ffe0e7;
+
         }
+
+
 
         /* section subheading (Functions) */
+
         .section-functions {
+
             font-size: 1.6rem;
+
             font-weight: 450;
+
             color: #5b6f7e;
+
             margin-bottom: 1rem;
+
             border-bottom: 2px dotted #efcdda;
+
             display: inline-block;
+
             padding-right: 1rem;
+
             letter-spacing: -0.2px;
+
         }
+
+
 
         /* iframe area inside card */
+
         .iframe-section {
+
             margin: 0.6rem 0 1.2rem;
+
             background: rgba(252, 240, 238, 0.6);
+
             border-radius: 1.5rem;
+
             padding: 0.6rem;
+
             transition: all 0.2s;
+
         }
+
         .iframe-wrapper {
+
             position: relative;
+
             width: 100%;
+
             border-radius: 1.2rem;
+
             overflow: hidden;
+
             background: #fff8f4;
+
         }
+
         iframe {
+
             display: block;
+
             width: 100%;
+
             height: 240px;
+
             border: none;
+
             border-radius: 1rem;
+
             background: #fffdfb;
+
         }
+
         .iframe-note {
+
             font-size: 0.7rem;
+
             text-align: center;
+
             margin-top: 0.6rem;
+
             color: #8b6f7a;
+
             background: rgba(248, 238, 240, 0.6);
+
             width: fit-content;
+
             margin-left: auto;
+
             margin-right: auto;
+
             padding: 0.2rem 1rem;
+
             border-radius: 60px;
+
             font-family: monospace;
+
         }
+
         .iframe-note code {
+
             background: #f1e3e0;
+
             padding: 0.1rem 0.5rem;
+
             border-radius: 30px;
+
             font-size: 0.7rem;
+
         }
+
+
 
         /* two paragraphs inside each card (stacked) */
+
         .paragraph-stack {
+
             margin-top: 0.5rem;
+
             display: flex;
+
             flex-direction: column;
+
             gap: 1rem;
+
         }
+
         .para-unit {
+
             background: rgba(255, 248, 245, 0.7);
+
             border-radius: 1.3rem;
+
             padding: 0.8rem 1rem;
+
             transition: background 0.2s;
+
         }
+
         .para-unit h4 {
+
             font-size: 1.2rem;
+
             font-weight: 500;
+
             color: #4d6272;
+
             border-left: 3px solid #f0c2d2;
+
             padding-left: 0.7rem;
+
             margin-bottom: 0.4rem;
+
             letter-spacing: -0.1px;
+
         }
+
         .para-unit p {
+
             font-size: 0.9rem;
+
             color: #2d404f;
+
             line-height: 1.5;
+
             text-align: justify;
+
         }
+
+
 
         /* responsive grid breakpoints */
+
         @media (max-width: 1000px) {
+
             .grid-9 {
+
                 gap: 1.5rem;
+
             }
+
             iframe {
+
                 height: 210px;
+
             }
+
         }
+
         @media (max-width: 780px) {
+
             .grid-9 {
+
                 grid-template-columns: repeat(2, 1fr);
+
                 gap: 1.3rem;
+
             }
+
             h1 {
+
                 font-size: 2.2rem;
+
             }
+
             .section-functions {
+
                 font-size: 1.4rem;
+
             }
+
             iframe {
+
                 height: 200px;
+
             }
+
             .para-unit h4 {
+
                 font-size: 1.1rem;
+
             }
+
         }
+
         @media (max-width: 550px) {
+
             .grid-9 {
+
                 grid-template-columns: 1fr;
+
                 gap: 1.5rem;
+
             }
+
             body {
+
                 padding: 1rem;
+
             }
+
             .wish-card {
+
                 padding: 1.2rem;
+
             }
+
             iframe {
+
                 height: 240px;
+
             }
+
             .global-heading {
+
                 margin-bottom: 1.2rem;
+
             }
+
         }
+
+
 
         /* extra fluff */
+
         .tiny-spark-footer {
+
             text-align: center;
+
             margin-top: 3rem;
+
             font-size: 0.7rem;
+
             letter-spacing: 2px;
+
             color: #c9b0bc;
+
             opacity: 0.7;
+
         }
+
         hr {
+
             margin: 1rem 0 0;
+
             border: none;
+
             height: 1px;
+
             background: radial-gradient(circle, #ecdbe3, transparent);
+
         }
+
     </style>
+
 </head>
+
 <body>
 
+
+
 <!-- floating cloud & star decorations (wishcore atmosphere) -->
+
 <div class="cloud-bg">
+
     <div class="cloud cloud-1"></div>
+
     <div class="cloud cloud-2"></div>
+
     <div class="cloud cloud-3"></div>
+
     <div class="cloud cloud-4"></div>
+
     <div class="cloud cloud-5"></div>
+
 </div>
+
 <div class="star-bg">
+
     <div class="star" style="top: 12%; left: 85%;"></div>
+
     <div class="star" style="top: 22%; left: 7%; width: 8px; height: 8px;"></div>
+
     <div class="star" style="top: 45%; left: 92%;"></div>
+
     <div class="star" style="top: 70%; left: 3%; width: 5px; height: 5px;"></div>
+
     <div class="star" style="top: 82%; left: 88%;"></div>
+
     <div class="star" style="top: 35%; left: 14%;"></div>
+
     <div class="star" style="top: 60%; left: 96%; width: 7px; height: 7px;"></div>
+
     <div class="star" style="top: 15%; left: 25%; width: 4px; height: 4px;"></div>
+
     <div class="star-cross" style="top: 18%; left: 65%;"></div>
+
     <div class="star-cross" style="top: 55%; left: 20%; transform: scale(0.7);"></div>
+
     <div class="star-cross" style="top: 78%; left: 72%; transform: scale(0.6);"></div>
+
     <div class="star-cross" style="top: 32%; left: 88%; transform: scale(0.8);"></div>
+
     <div class="star-cross" style="top: 90%; left: 40%; transform: scale(0.5);"></div>
+
 </div>
+
+
 
 <div class="main-wrapper">
+
     <!-- only one main heading -->
+
     <div class="global-heading">
+
         <h1>Our leisure time</h1>
+
         <div class="main-sub">✧ soft explorations · functions & reverie ✧</div>
+
     </div>
+
+
 
     <!-- 3x3 grid: 9 identical sections -->
+
     <div class="grid-9">
+
         <!-- generate 9 identical cards using JS? simpler: write static 9 blocks with consistent structure -->
+
         <!-- we'll use copy-paste for clarity, but each has same classes and dummy text -->
+
         <!-- CARD 1 -->
+
         <div class="wish-card">
+
             <div class="section-functions"><a href="https://www.desmos.com/calculator/fpudt0fgi5">Funhouse mirror-exponential function</a></div>
+
             <div class="iframe-section">
+
                 <div class="iframe-wrapper">
+
                     <iframe src="https://www.desmos.com/calculator/fpudt0fgi5?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+
                 </div>
+
                 <div class="iframe-note">📐 desmos ready · replace <code>src</code></div>
+
             </div>
+
             <div class="paragraph-stack">
+
                 <div class="para-unit">
+
                     <h4>transformations</h4>
+
                     <p>I took this photo in an amusement park in Suzhou, China when my friends and I were playing with a huge distorting mirror. I found the shape of the mirror was closely like a growth exponential function, so I selected the parent function y = 2<sup>x</sup>as a starting point.Then I noticed this curve is steeper than the shape of the mirror, so I changed the base number from 2 to 1.4 to make the image grow more slowly.Then I temporiraly adjusted the position of my function and found this shape fit the frame of the mirror nicely.After that, I chose the base of the handle as the original point and found my function is below the mirror.So,I did a vertical translation 1.8 units upward and a horizontal translation of 0.5 unit to the right to let the function fit more perfectly.  <br>     <br>Then this is the final function I got: 
+
 <br>y = 1.4<sup>(x - 0.5)</sup> + 1.8<br>
+
 <br>Summary of transformations:
+
 <br> &bull;  change the base number from 2 to 1.4→ 2<sup>x</sup>to 1.4<sup>x<sup>
+
 <p>&bull;vertical translation of 1.8 units upward→1.4<sup>x</sup>+1.8
+
 &bull;horizontal translation of 0.5 unit to the right→<br>1.4<sup>(x - 0.5)</sup> + 1.8
+
 . </p>
+
                 </div>
+
                 <div class="para-unit">
+
                     <h4>Domain and range</h4>
+
                     <p>The domain of my function is D: {x ∈ ℝ|0 &le; x &le; 3.7}. I limited the domain to the portion of the mirror that was visible in the photo.Because the left part of the mirror was covered by my hand and it was invisible, so I limited the minimum x value to 0.The maximum value is just the number at which the mirror frame disappears on the right side.<br>
+
 <br>The parent function y = 2<sup>x</sup> has a domain of D：{x ∈ ℝ} and a range of R:{y ∈ ℝ|y > 0}.This means this function is defined for all possible x values and can produce any positive numbers output. It also has a horizontal asymptote at y = 0, where the function is undefined. <br>
+
 <br>After applying transformations,my function also has a horizontal asymptote.However, since I restricted the domain to a small interval that lies away from the asymptote, this undefined behavior is not present from my model.Therefore,I do not need to consider the discontinuity when describing the domain and range of this specific situation.<br>
+
 <br>Since the function is continuous on the restricted interval, the range can be determined by evaluating the function at the endpoints of the domain. By evaluating at 
+
  and x=0 and x=3.7
+
 , I obtained approximate output values of 2.65 and 4.74.<br><br>Therefore,the range of the function is approximately R:{y ∈ ℝ|2.65 &le; y &le; 4.74}.
+
 </p>
+
                 </div>
+
             </div>
+
         </div>
+
         <!-- CARD 2 -->
+
         <div class="wish-card">
+
             <div class="section-functions"><a href="https://www.desmos.com/calculator/tdcephpjgi">Arch-trigonometric function</a></div>
+
             <div class="iframe-section">
+
                 <div class="iframe-wrapper">
+
                    <iframe src="https://www.desmos.com/calculator/tdcephpjgi?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+
                 </div>
+
                 <div class="iframe-note">📐 desmos ready · replace <code>src</code></div>
+
             </div>
+
             <div class="paragraph-stack">
+
                 <div class="para-unit">
+
                     <h4>transformations</h4>
+
                     <p>I took this photo in front of the Royal Palace of Malaysia in Kuala Lumpur and I found the shape of the arch is like a secant function. So, I chose the parent function y = sec(x) as a starting point. I set the left edge of the arch as the original point and I found the arch is a downward arc, so I had to choose an image within an interval below the y-axis to fit the shape.I decided to choose the nearest part of the function which is in the lower right part of the picture as the beginning point.<br>
+
 <br>I found the curvature of the arch is greater than that of the function, so I increased the period from 2π to approximately 9 by conducting a horizontal stretch by a factor of 1/0.7.Then, I temporarily adjusted my picture and found the curve fit the arch nicely. After that, I did a horizontal translation of 2.83 units to the left and a vertical translation of 2.5 units upward to let this part of the function go to its right place.<br>
+
 <br>The final function I got: y=sec0.7(x+2.83)+2.5<br>
+
 <br>Summary of transformations:
+
 <br>&bull; horizontal stretch by a factor of 1/0.7→
+
 sec(x)→sec(0.7x)
+
 <br>&bull; horizontal translation of 2.83 units to the left→<br>sec0.7(x+2.83)
+
 <br>&bull; vertical translation of 2.5 units upward→<br>sec0.7(x+2.83)+2.5
+
                     </p>
+
                 </div>
+
                 <div class="para-unit">
+
                     <h4>Domain and range</h4>
+
                     <p>The domain of my function is D:{x ∈ ℝ|0 &le; x &le; 3.313}. I chose the left edge of the arch as the starting point, so the minimum value of my domain is zero.I chose 3.313 as the maximum x value is because at this time the y value is closest to zero, which is the most in line with the real situation.<br>
+
 <br>In my parent function y=sec(x),it has many vertical asmyptotes at x = &pi;/2 + k&pi;(k &isin; Z)After applying transformations, my function also has many vertical asmyptotes. However, since I restricted the domain into a small interval,the asmyptotes became invisible.So I do not need to consider the discontinuity of the domain in this specific situation.<br>
+
 <br>In my parent function, it has a range of (-&infin;, -1] &cup; [1, &infin;).This means that for the part of the function I chose, it has a turning point at -1.After I made a vertical translation of 2.5 units upward,the turning point became 1.5.Because I chose the origin as my starting point,so my minimum y value is zero.<br>
+
 <br>Therefore, the range of my function is {y ∈ ℝ|0 &le; y &le; 1.5}
+
                     </p>
+
                 </div>
+
             </div>
+
         </div>
+
         <!-- CARD 3 -->
+
         <div class="wish-card">
+
             <div class="section-functions"><a href="https://www.w3schools.com">Roof-sinusoidal function</a>
+
 </div>
+
             <div class="iframe-section">
+
                 <div class="iframe-wrapper">
+
                     <iframe src="https://www.desmos.com/calculator/asiqxzzrqi?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+
                 </div>
+
                 <div class="iframe-note">📐 desmos ready · replace <code>src</code></div>
+
             </div>
+
             <div class="paragraph-stack">
+
                 <div class="para-unit">
+
                     <h4>transformations</h4>
+
                     <p>I took this picture in Yu garden,Shanghai and I found the roof behind me in this picture is like a cosine function because it repeats inself.So I chose the parent function y=cos(x) as a starting point. I chose my foot as the original point and I found that the curve of the roof as a whole appears much smaller than the function. So I decreased the amplitude and the period of the function by conducting a vertical stretch by a factor of 0.39 and a horizontal compression by a factor of 1/2.39. Then I drew my picture downward and I found the function fit the shape of the roof nicely. After that, I did a horizontal translation of 0.3 unit to the left and a vertical translation of 3.6 units upward to let the function come to its right place. <br>
+
 <br>The final function I got :y=0.39cos(2.39(x+0.3))+3.6<br>
+
 <br>Summary of transformations:
+
 <br>&bull; vertical stretch by a factor of 0.39→cos(x)→0.39cos(x)
+
 <br>&bull; horizontal stretch by a factor of 1/2.39→0.39cos(2.39x)
+
 <br>&bull; horizontal translation of 0.3 unit to the left→<br>0.39cos(2.39(x+0.3))
+
 <br>&bull; vertical translation of 3.6 units upward→<br>0.39cos(2.39(x+0.3))+3.6
+
 </p>
+
                 </div>
+
                 <div class="para-unit">
+
                     <h4>Domain and range</h4>
+
                     <p>Because in my picture, only portion of the roof was visible, so I limited my domain to {x ∈ ℝ|-0.7 &le; x &le; 1.5} to fit that part.
+
 <br>In my parent function y=cos(x), it has a range of [-1, 1], after I did vertical translations of 3.6 units upward and changed the amplitude from one to 0.39, the maximum y value can be caculated by 0.39+3.6=3.99 and the miminum point is -0.39+3.6=3.21<br>
+
 <br>Therefore, the range of my function is{y ∈ ℝ|3.21 &le; y &le; 3.99} 
+
 </p>
+
                 </div>
+
             </div>
+
         </div>
+
         <!-- CARD 4 -->
+
         <div class="wish-card">
-            <div class="section-functions">Functions</div>
+
+            <div class="section-functions"><a href="https://www.desmos.com/calculator/j6kxehdayw">Pillar structure - Quadratic Reciprocal Function</a></div>
+
             <div class="iframe-section">
+
                 <div class="iframe-wrapper">
-                    <iframe class="desmos-placeholder" title="Desmos graph placeholder" src="about:blank"></iframe>
+
+                    <iframe src="https://www.desmos.com/calculator/7smzfunvsu?embed" width="500" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+
                 </div>
+
                 <div class="iframe-note">📐 desmos ready · replace <code>src</code></div>
+
             </div>
+
             <div class="paragraph-stack">
+
                 <div class="para-unit">
-                    <h4>curves & constellations</h4>
-                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Magnis convallis ut mattis, habitant quis facilisi pretium. Tortor class ultricies nibh suspendisse platea euismod. Varius lectus non dignissim suspendisse aenean.</p>
+
+                    <h4>Transformations</h4>
+
+                    <p>
+                        I chose this photo as it is the first major structure seen when I first came to Sunway. I established the edge of the leftmost tile on the ground as the origin. The height of the inner curve of the pillar (m) was my vertical scale and the horizontal distance from the leftmost edge of the tile (m) was my horizontal scale. I scaled the photo to match an estimate of the distances in meters.<br><br>
+                        To model the function onto the pillar structure, I began by identifying a shape that most closely resembled a quadratic reciprocal shape, which was the inner curve of the pillar structure. I used the parent function \(y=\frac{1}{x^2}\) as a starting point. As the orientation of the inner curve faces downwards, I chose to reflect the parent function by the x-axis, modifying the function to \(y=-\frac{1}{x^2}\).<br><br>
+                        As the inner curve of the pillar structure is significantly smaller than the initial parent function, I horizontally compressed my modified function by a factor of \(\frac{1}{10}\), leaving me now with the function \(y = -\frac{1}{10(x^2)}\). Once the shape was fixed, I aligned it to the inner curve using both horizontal and vertical translations. I shifted the graph to the right by 1.95 units (m) and then shifted it upwards by 20 units (m). This resulted in the function \(y=-\frac{1}{10(x-1.95)^2}+20\), which closely models the inner curve of the pillar structure in my photo.<br><br>
+                        <strong>Final function:</strong> \(y=-\frac{1}{10(x-1.95)^2}+20\)<br><br>
+                        <strong>Summary of transformations:</strong><br>
+                        &bull; Reflection on x-axis: \(y = \frac{1}{x^2} \rightarrow y = -\frac{1}{x^2}\)<br>
+                        &bull; Horizontal compression of factor \(\frac{1}{10}\): \(-\frac{1}{10(x^2)}\)<br>
+                        &bull; Horizontal translation of 1.95 units to the right: \(-\frac{1}{10(x-1.95)^2}\)<br>
+                        &bull; Vertical translation of 20 units upwards: \(-\frac{1}{10(x-1.95)^2}+20\)
+                    </p>
+
                 </div>
+
                 <div class="para-unit">
-                    <h4>dynamic graph reverie</h4>
-                    <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisis suspendisse lobortis nisl inceptos convallis. Augue praesent etiam venenatis lectus, venenatis fusce cras. Iaculis fringilla habitant nunc tempor luctus felis.</p>
+
+                    <h4>Domain and Range</h4>
+
+                    <p>
+                        D : { \(x \in \mathbb{R} \mid 1 \le x \le 3, x \ne 1.95\) }<br>
+                        R : { \(y \in \mathbb{R} \mid 16 \le y < 20\) }<br><br>
+                        The parent function \(y = 1/x^2\) has a domain of D : { \(x \in \mathbb{R} \mid x \ne 0\) } and a range of R : { \(y \in \mathbb{R} \mid y > 0\) }. It has a vertical asymptote at \(x = 0\) and a horizontal asymptote at \(y = 0\), where the functions are undefined.<br><br>
+                        The domain of my function is D : { \(x \in \mathbb{R} \mid 1 \le x \le 3, x \ne 1.95\) }. I limited the domain to the portion between the middle points of the two inner curves on the pillar structure [1,3], as that portion most closely resembled a quadratic reciprocal function. My function has vertical asymptote at \(x = 1.95\), as a result of my shift of the function 1.95 units to the right, aligning with the pillar in between the two inner curves. While the parent domain of the function only excludes the asymptote, I applied a restricted domain of [1,3] to isolate the specific section of the pillar being modeled, resulting in a final domain of D : { \(x \in \mathbb{R} \mid 1 \le x \le 3, x \ne 1.95\) }.<br><br>
+                        The range of my function is R : { \(y \in \mathbb{R} \mid 16 \le y < 20\) } I limited my domain to [16,20) as that image portion most closely models a quadratic reciprocal function at that restricted range. The graph opens down, due to a reflection on the x-axis from my parent function, so \(y < 20\) is used. My function has a horizontal asymptote at \(y = 20\), so the symbol < is used.
+                    </p>
+
                 </div>
+
             </div>
+
         </div>
+
         <!-- CARD 5 -->
+
         <div class="wish-card">
+
             <div class="section-functions">Functions</div>
+
             <div class="iframe-section">
+
                 <div class="iframe-wrapper">
+
                     <iframe class="desmos-placeholder" title="Desmos graph placeholder" src="about:blank"></iframe>
+
                 </div>
+
                 <div class="iframe-note">📐 desmos ready · replace <code>src</code></div>
+
             </div>
+
             <div class="paragraph-stack">
+
                 <div class="para-unit">
+
                     <h4>curves & constellations</h4>
+
                     <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Magnis convallis ut mattis, habitant quis facilisi pretium. Tortor class ultricies nibh suspendisse platea euismod. Varius lectus non dignissim suspendisse aenean.</p>
+
                 </div>
+
                 <div class="para-unit">
+
                     <h4>dynamic graph reverie</h4>
+
                     <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisis suspendisse lobortis nisl inceptos convallis. Augue praesent etiam venenatis lectus, venenatis fusce cras. Iaculis fringilla habitant nunc tempor luctus felis.</p>
+
                 </div>
+
             </div>
+
         </div>
+
         <!-- CARD 6 -->
+
         <div class="wish-card">
+
             <div class="section-functions">Functions</div>
+
             <div class="iframe-section">
+
                 <div class="iframe-wrapper">
+
                     <iframe class="desmos-placeholder" title="Desmos graph placeholder" src="about:blank"></iframe>
+
                 </div>
+
                 <div class="iframe-note">📐 desmos ready · replace <code>src</code></div>
+
             </div>
+
             <div class="paragraph-stack">
+
                 <div class="para-unit">
+
                     <h4>curves & constellations</h4>
+
                     <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Magnis convallis ut mattis, habitant quis facilisi pretium. Tortor class ultricies nibh suspendisse platea euismod. Varius lectus non dignissim suspendisse aenean.</p>
+
                 </div>
+
                 <div class="para-unit">
+
                     <h4>dynamic graph reverie</h4>
+
                     <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisis suspendisse lobortis nisl inceptos convallis. Augue praesent etiam venenatis lectus, venenatis fusce cras. Iaculis fringilla habitant nunc tempor luctus felis.</p>
+
                 </div>
+
             </div>
+
         </div>
+
         <!-- CARD 7 -->
+
         <div class="wish-card">
+
             <div class="section-functions">Functions</div>
+
             <div class="iframe-section">
+
                 <div class="iframe-wrapper">
+
                     <iframe class="desmos-placeholder" title="Desmos graph placeholder" src="about:blank"></iframe>
+
                 </div>
+
                 <div class="iframe-note">📐 desmos ready · replace <code>src</code></div>
+
             </div>
+
             <div class="paragraph-stack">
+
                 <div class="para-unit">
+
                     <h4>curves & constellations</h4>
+
                     <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Magnis convallis ut mattis, habitant quis facilisi pretium. Tortor class ultricies nibh suspendisse platea euismod. Varius lectus non dignissim suspendisse aenean.</p>
+
                 </div>
+
                 <div class="para-unit">
+
                     <h4>dynamic graph reverie</h4>
+
                     <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisis suspendisse lobortis nisl inceptos convallis. Augue praesent etiam venenatis lectus, venenatis fusce cras. Iaculis fringilla habitant nunc tempor luctus felis.</p>
+
                 </div>
+
             </div>
+
         </div>
+
         <!-- CARD 8 -->
+
         <div class="wish-card">
+
             <div class="section-functions">Functions</div>
+
             <div class="iframe-section">
+
                 <div class="iframe-wrapper">
+
                     <iframe class="desmos-placeholder" title="Desmos graph placeholder" src="about:blank"></iframe>
+
                 </div>
+
                 <div class="iframe-note">📐 desmos ready · replace <code>src</code></div>
+
             </div>
+
             <div class="paragraph-stack">
+
                 <div class="para-unit">
+
                     <h4>curves & constellations</h4>
+
                     <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Magnis convallis ut mattis, habitant quis facilisi pretium. Tortor class ultricies nibh suspendisse platea euismod. Varius lectus non dignissim suspendisse aenean.</p>
+
                 </div>
+
                 <div class="para-unit">
+
                     <h4>dynamic graph reverie</h4>
+
                     <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisis suspendisse lobortis nisl inceptos convallis. Augue praesent etiam venenatis lectus, venenatis fusce cras. Iaculis fringilla habitant nunc tempor luctus felis.</p>
+
                 </div>
+
             </div>
+
         </div>
+
         <!-- CARD 9 -->
+
         <div class="wish-card">
+
             <div class="section-functions">Functions</div>
+
             <div class="iframe-section">
+
                 <div class="iframe-wrapper">
+
                     <iframe class="desmos-placeholder" title="Desmos graph placeholder" src="about:blank"></iframe>
+
                 </div>
+
                 <div class="iframe-note">📐 desmos ready · replace <code>src</code></div>
+
             </div>
+
             <div class="paragraph-stack">
+
                 <div class="para-unit">
+
                     <h4>curves & constellations</h4>
+
                     <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Magnis convallis ut mattis, habitant quis facilisi pretium. Tortor class ultricies nibh suspendisse platea euismod. Varius lectus non dignissim suspendisse aenean.</p>
+
                 </div>
+
                 <div class="para-unit">
+
                     <h4>dynamic graph reverie</h4>
+
                     <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Facilisis suspendisse lobortis nisl inceptos convallis. Augue praesent etiam venenatis lectus, venenatis fusce cras. Iaculis fringilla habitant nunc tempor luctus felis.</p>
+
                 </div>
+
             </div>
+
         </div>
+
     </div>
+
+
 
     <hr />
+
     <div class="tiny-spark-footer">
+
         ✦  math cct  ✦
+
     </div>
+
 </div>
 
+
+
 <!-- simple helper note (no emoticons overload) -->
+
 <script>
+
     (function() {
+
         // optional: friendly console reminder for replacing each iframe src with Desmos embed links
+
         const frames = document.querySelectorAll('.desmos-placeholder');
+
         if (frames.length) {
+
             console.log(`✨ Wishcore grid ready — ${frames.length} Desmos iframe placeholders. Replace each 'src' attribute with your Desmos embed link (e.g., https://www.desmos.com/calculator/example?embed)`);
+
         }
+
     })();
+
 </script>
+
 </body>
+
 </html>
